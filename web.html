@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+        }
+        .page-box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: none; 
+        }
+        #loginPage {
+            display: block; 
+            border-top: 5px solid #007bff;
+        }
+        #registerAccountPage {
+            border-top: 5px solid #17a2b8;
+        }
+        #detailsFormPage {
+            border-top: 5px solid #ffc107;
+        }
+        #resultPage {
+            border-top: 5px solid #28a745;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+            font-size: 14px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        textarea { resize: vertical; }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        .radio-group label {
+            font-weight: normal;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-primary { background-color: #007bff; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn-info { background-color: #17a2b8; }
+        .btn-info:hover { background-color: #117a8b; }
+        .btn-success { background-color: #28a745; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-secondary { background-color: #6c757d; }
+        .btn-secondary:hover { background-color: #5a6268; }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .link-text a {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+        .result-item {
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.4;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        .result-item:last-child { border-bottom: none; }
+        .result-item strong {
+            color: #555;
+            display: inline-block;
+            width: 130px;
+        }
+        .error-msg {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="loginPage" class="page-box">
+            <h2>Student Login</h2>
+            <div id="loginError" class="error-msg">Invalid Username or Password!</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUser">Username</label>
+                    <input type="text" id="loginUser" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPass">Password (Roll No)</label>
+                    <input type="password" id="loginPass" placeholder="Enter your Roll No" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <div class="link-text">
+                Don't have an account? <a id="goToRegister">Register here</a>
+            </div>
+        </div>
+
+        <div id="registerAccountPage" class="page-box">
+            <h2>Create Account</h2>
+            <form id="accountRegisterForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label for="regRollNo">Roll Number</label>
+                    <input type="text" id="regRollNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email ID</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="regUser">Username</label>
+                    <input type="text" id="regUser" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPass">Create Password (Must be Roll No)</label>
+                    <input type="password" id="regPass" placeholder="Set your Roll No as password" required>
+                </div>
+                <button type="submit" class="btn-info">Register Account</button>
+            </form>
+            <div class="link-text">
+                Already have an account? <a id="goToLogin">Back to Login</a>
+            </div>
+        </div>
+
+        <div id="detailsFormPage" class="page-box">
+            <h2>Complete Profile Details</h2>
+            <form id="studentDetailsForm">
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gender" value="Male" required> Male</label>
+                        <label><input type="radio" name="gender" value="Female"> Female</label>
+                        <label><input type="radio" name="gender" value="Other"> Other</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">Department / Branch</label>
+                    <select id="department" required>
+                        <option value="" disabled selected>Select your branch</option>
+                        <optgroup label="Engineering Branches">
+                            <option value="Computer Science (CSE)">Computer Science (CSE)</option>
+                            <option value="Information Technology (IT)">Information Technology (IT)</option>
+                            <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+                            <option value="Electrical & Electronics (EEE)">Electrical & Electronics (EEE)</option>
+                            <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                            <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+                        </optgroup>
+                        <optgroup label="Other Departments">
+                            <option value="Marketing">Marketing</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="Finance">Finance</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="yearSem">Year & Semester</label>
+                    <select id="yearSem" required>
+                        <option value="" disabled selected>Select Year & Semester</option>
+                        <option value="1st Year - Semester 1">1st Year - Semester 1</option>
+                        <option value="1st Year - Semester 2">1st Year - Semester 2</option>
+                        <option value="2nd Year - Semester 1">2nd Year - Semester 1</option>
+                        <option value="2nd Year - Semester 2">2nd Year - Semester 2</option>
+                        <option value="3rd Year - Semester 1">3rd Year - Semester 1</option>
+                        <option value="3rd Year - Semester 2">3rd Year - Semester 2</option>
+                        <option value="4th Year - Semester 1">4th Year - Semester 1</option>
+                        <option value="4th Year - Semester 2">4th Year - Semester 2</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="grade">Grade / CGPA</label>
+                    <input type="text" id="grade" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn-success">Submit Details</button>
+            </form>
+        </div>
+
+        <div id="resultPage" class="page-box">
+            <h2>Profile Summary</h2>
+            <div class="result-item"><strong>Account Name:</strong> <span id="resAccName"></span></div>
+            <div class="result-item"><strong>Roll No:</strong> <span id="resAccRoll"></span></div>
+            <div class="result-item"><strong>Email:</strong> <span id="resAccEmail"></span></div>
+            <div class="result-item"><strong>Username:</strong> <span id="resAccUser"></span></div>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+            <div class="result-item"><strong>Mobile:</strong> <span id="resMobile"></span></div>
+            <div class="result-item"><strong>Gender:</strong> <span id="resGender"></span></div>
+            <div class="result-item"><strong>Dept / Branch:</strong> <span id="resDept"></span></div>
+            <div class="result-item"><strong>Year & Sem:</strong> <span id="resYearSem"></span></div>
+            <div class="result-item"><strong>Grade/CGPA:</strong> <span id="resGrade"></span></div>
+            <div class="result-item"><strong>Address:</strong> <span id="resAddress"></span></div>
+
+            <div class="button-group">
+                <button type="button" id="goBackBtn" class="btn-secondary">Edit Details</button>
+                <button type="button" id="saveFileBtn" class="btn-primary">Save to PC</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const loginPage = document.getElementById('loginPage');
+        const registerAccountPage = document.getElementById('registerAccountPage');
+        const detailsFormPage = document.getElementById('detailsFormPage');
+        const resultPage = document.getElementById('resultPage');
+
+        document.getElementById('goToRegister').addEventListener('click', () => {
+            loginPage.style.display = 'none';
+            registerAccountPage.style.display = 'block';
+        });
+        document.getElementById('goToLogin').addEventListener('click', () => {
+            registerAccountPage.style.display = 'none';
+            loginPage.style.display = 'block';
+        });
+
+        // 1. ACCOUNT REGISTRATION
+        document.getElementById('accountRegisterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const rollNo = document.getElementById('regRollNo').value;
+            const pass = document.getElementById('regPass').value;
+
+            if(rollNo !== pass) {
+                alert("As per rules, your password must match your Roll Number.");
+                return;
+            }
+
+            sessionStorage.setItem('accName', document.getElementById('regName').value);
+            sessionStorage.setItem('accRollNo', rollNo);
+            sessionStorage.setItem('accEmail', document.getElementById('regEmail').value);
+            sessionStorage.setItem('accUser', document.getElementById('regUser').value); // Save Username
+            sessionStorage.setItem('accPass', pass);
+
+            alert("Account created successfully! You can now log in.");
+            
+            this.reset();
+            registerAccountPage.style.display = 'none';
+            loginPage.style.display = 'block';
+        });
+
+        // 2. LOGIN
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const enterUser = document.getElementById('loginUser').value;
+            const enterPass = document.getElementById('loginPass').value;
+
+            const savedUser = sessionStorage.getItem('accUser');
+            const savedPass = sessionStorage.getItem('accPass');
+
+            if(enterUser === savedUser && enterPass === savedPass) {
+                document.getElementById('loginError').style.display = 'none';
+                
+                document.getElementById('resAccName').textContent = sessionStorage.getItem('accName');
+                document.getElementById('resAccRoll').textContent = sessionStorage.getItem('accRollNo');
+                document.getElementById('resAccEmail').textContent = sessionStorage.getItem('accEmail');
+                document.getElementById('resAccUser').textContent = sessionStorage.getItem('accUser'); // Display Username
+
+                loginPage.style.display = 'none';
+                detailsFormPage.style.display = 'block';
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
+        // 3. STUDENT DETAILS
+        document.getElementById('studentDetailsForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            document.getElementById('resMobile').textContent = document.getElementById('mobile').value;
+            document.getElementById('resGender').textContent = document.querySelector('input[name="gender"]:checked').value;
+            document.getElementById('resDept').textContent = document.getElementById('department').value;
+            document.getElementById('resYearSem').textContent = document.getElementById('yearSem').value; // Display Year & Sem
+            document.getElementById('resGrade').textContent = document.getElementById('grade').value;
+            document.getElementById('resAddress').textContent = document.getElementById('address').value;
+
+            detailsFormPage.style.display = 'none';
+            resultPage.style.display = 'block';
+        });
+
+        // 4. GO BACK BUTTON
+        document.getElementById('goBackBtn').addEventListener('click', function() {
+            resultPage.style.display = 'none';
+            detailsFormPage.style.display = 'block';
+        });
+
+        // 5. SAVE DETAILS (DOWNLOAD FILE)
+        document.getElementById('saveFileBtn').addEventListener('click', function() {
+            
+            const name = document.getElementById('resAccName').textContent;
+            
+            const fileContent = `STUDENT PROFILE DATA\n` +
+                                `====================\n` +
+                                `Name: ${name}\n` +
+                                `Roll No: ${document.getElementById('resAccRoll').textContent}\n` +
+                                `Email: ${document.getElementById('resAccEmail').textContent}\n` +
+                                `Username: ${document.getElementById('resAccUser').textContent}\n` +
+                                `--------------------\n` +
+                                `Mobile: ${document.getElementById('resMobile').textContent}\n` +
+                                `Gender: ${document.getElementById('resGender').textContent}\n` +
+                                `Dept/Branch: ${document.getElementById('resDept').textContent}\n` +
+                                `Year & Sem: ${document.getElementById('resYearSem').textContent}\n` +
+                                `Grade/CGPA: ${document.getElementById('resGrade').textContent}\n` +
+                                `Address: ${document.getElementById('resAddress').textContent}\n`;
+
+            const blob = new Blob([fileContent], { type: "text/plain" });
+            const downloadLink = document.createElement("a");
+            
+            const safeFileName = name.replace(/ /g, "_") + "_Profile.txt";
+            downloadLink.download = safeFileName;
+
+            downloadLink.href = window.URL.createObjectURL(blob);
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        });
+    </script>
+
+</body>
+</html>
