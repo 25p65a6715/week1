@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- PAGE 1: LOGIN -->
+        <div id="loginPage" class="page-box">
+            <h2>Student Login</h2>
+            <div id="loginError" class="error-msg">Invalid Username or Password!</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUser">Username</label>
+                    <input type="text" id="loginUser" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPass">Password (Roll No)</label>
+                    <input type="password" id="loginPass" placeholder="Enter your Roll No" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <div class="link-text">
+                Don't have an account? <a id="goToRegister">Register here</a>
+            </div>
+        </div>
+
+        <!-- PAGE 2: ACCOUNT REGISTRATION -->
+        <div id="registerAccountPage" class="page-box">
+            <h2>Create Account</h2>
+            <form id="accountRegisterForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label for="regRollNo">Roll Number</label>
+                    <input type="text" id="regRollNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email ID</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="regUser">Username</label>
+                    <input type="text" id="regUser" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPass">Create Password (Must be Roll No)</label>
+                    <input type="password" id="regPass" placeholder="Set your Roll No as password" required>
+                </div>
+                <button type="submit" class="btn-info">Register Account</button>
+            </form>
+            <div class="link-text">
+                Already have an account? <a id="goToLogin">Back to Login</a>
+            </div>
+        </div>
+
+        <!-- PAGE 3: STUDENT DETAILS FORM -->
+        <div id="detailsFormPage" class="page-box">
+            <h2>Complete Profile Details</h2>
+            <form id="studentDetailsForm">
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gender" value="Male" required> Male</label>
+                        <label><input type="radio" name="gender" value="Female"> Female</label>
+                        <label><input type="radio" name="gender" value="Other"> Other</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">Department / Branch</label>
+                    <select id="department" required>
+                        <option value="" disabled selected>Select your branch</option>
+                        <optgroup label="Engineering Branches">
+                            <option value="Computer Science (CSE)">Computer Science (CSE)</option>
+                            <option value="Information Technology (IT)">Information Technology (IT)</option>
+                            <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+                            <option value="Electrical & Electronics (EEE)">Electrical & Electronics (EEE)</option>
+                            <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                            <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+                        </optgroup>
+                        <optgroup label="Other Departments">
+                            <option value="Marketing">Marketing</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="Finance">Finance</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="yearSem">Year & Semester</label>
+                    <select id="yearSem" required>
+                        <option value="" disabled selected>Select Year & Semester</option>
+                        <option value="1st Year - Semester 1">1st Year - Semester 1</option>
+                        <option value="1st Year - Semester 2">1st Year - Semester 2</option>
+                        <option value="2nd Year - Semester 1">2nd Year - Semester 1</option>
+                        <option value="2nd Year - Semester 2">2nd Year - Semester 2</option>
+                        <option value="3rd Year - Semester 1">3rd Year - Semester 1</option>
+                        <option value="3rd Year - Semester 2">3rd Year - Semester 2</option>
+                        <option value="4th Year - Semester 1">4th Year - Semester 1</option>
+                        <option value="4th Year - Semester 2">4th Year - Semester 2</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="grade">Grade / CGPA</label>
+                    <input type="text" id="grade" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn-success">Submit Details</button>
+            </form>
+        </div>
+
+        <!-- PAGE 4: THE RESULTS & SAVE -->
+        <div id="resultPage" class="page-box">
+            <h2>Profile Summary</h2>
+            <div class="result-item"><strong>Account Name:</strong> <span id="resAccName"></span></div>
+            <div class="result-item"><strong>Roll No:</strong> <span id="resAccRoll"></span></div>
+            <div class="result-item"><strong>Email:</strong> <span id="resAccEmail"></span></div>
+            <div class="result-item"><strong>Username:</strong> <span id="resAccUser"></span></div>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+            <div class="result-item"><strong>Mobile:</strong> <span id="resMobile"></span></div>
+            <div class="result-item"><strong>Gender:</strong> <span id="resGender"></span></div>
+            <div class="result-item"><strong>Dept / Branch:</strong> <span id="resDept"></span></div>
+            <div class="result-item"><strong>Year & Sem:</strong> <span id="resYearSem"></span></div>
+            <div class="result-item"><strong>Grade/CGPA:</strong> <span id="resGrade"></span></div>
+            <div class="result-item"><strong>Address:</strong> <span id="resAddress"></span></div>
+
+            <div class="button-group">
+                <button type="button" id="goBackBtn" class="btn-secondary">Edit Details</button>
+                <button type="button" id="saveFileBtn" class="btn-primary">Save to PC</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Link to your external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
